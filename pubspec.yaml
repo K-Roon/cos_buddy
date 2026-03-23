@@ -1,0 +1,63 @@
+name: cos_buddy
+description: "코스프레의 모든 것. 코스버디."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  # 상태관리
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # 라우터
+  go_router: ^17.1.0
+
+  # 네트워크
+  dio: ^5.4.0
+  retrofit: ^4.1.0           # API 코드 자동생성
+
+  # 로컬 저장소
+  flutter_secure_storage: ^10.0.0   # JWT 토큰 저장
+  shared_preferences: ^2.2.0
+
+  # 이미지
+  cached_network_image: ^3.3.1
+  image_picker: ^1.0.7
+
+  # 인증
+  firebase_auth: ^6.2.0
+  google_sign_in: ^7.2.0
+  sign_in_with_apple: ^7.0.1
+
+  # 광고 (AdMob)
+  google_mobile_ads: ^7.0.0
+
+  # 인앱구매
+  in_app_purchase: ^3.1.13
+
+  # 실시간 채팅
+  web_socket_channel: ^3.0.3
+
+  # 유틸
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.8.1
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.8
+  freezed: ^3.2.5
+  json_serializable: ^6.7.1
+  retrofit_generator: ^10.2.3
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
