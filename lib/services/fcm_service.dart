@@ -13,9 +13,10 @@ Future<void> _bgHandler(RemoteMessage _) async {}
 
 class FcmService {
   FcmService(this._ref);
+
   final Ref _ref;
 
-  final _messaging          = FirebaseMessaging.instance;
+  final _messaging = FirebaseMessaging.instance;
   final _localNotifications = FlutterLocalNotificationsPlugin();
 
   static const _channel = AndroidNotificationChannel(
@@ -29,16 +30,16 @@ class FcmService {
     FirebaseMessaging.onBackgroundMessage(_bgHandler);
 
     await _messaging.requestPermission(
-      alert: true, badge: true, sound: true,
+      alert: true,
+      badge: true,
+      sound: true,
     );
 
-    // Android 알림 채널 생성
-    final androidPlugin = _localNotifications
-        .resolvePlatformSpecificImplementation
-    AndroidFlutterLocalNotificationsPlugin>();
-    if (androidPlugin != null) {
-      await androidPlugin.createNotificationChannel(_channel);
-    }
+    // Android 알림 채널 생성 — 제네릭을 변수로 분리
+    final AndroidFlutterLocalNotificationsPlugin? androidImpl =
+        _localNotifications.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
+    await androidImpl?.createNotificationChannel(_channel);
 
     await _localNotifications.initialize(
       const InitializationSettings(
@@ -49,7 +50,9 @@ class FcmService {
     );
 
     await _messaging.setForegroundNotificationPresentationOptions(
-      alert: true, badge: true, sound: true,
+      alert: true,
+      badge: true,
+      sound: true,
     );
 
     await _setupToken();
@@ -66,12 +69,12 @@ class FcmService {
     try {
       final info = await PackageInfo.fromPlatform();
       await _ref.read(deviceRepositoryProvider).registerFcmToken(
-        token:      token,
-        platform:   Platform.isAndroid
-            ? DevicePlatform.android
-            : DevicePlatform.ios,
-        appVersion: info.version,
-      );
+            token: token,
+            platform: Platform.isAndroid
+                ? DevicePlatform.android
+                : DevicePlatform.ios,
+            appVersion: info.version,
+          );
     } catch (e) {
       debugPrint('[FCM] 토큰 등록 실패: $e');
     }
@@ -80,9 +83,7 @@ class FcmService {
   Future<void> deactivate() async {
     final token = await _messaging.getToken();
     if (token == null) return;
-    await _ref
-        .read(deviceRepositoryProvider)
-        .deactivateFcmToken(token: token);
+    await _ref.read(deviceRepositoryProvider).deactivateFcmToken(token: token);
     await _messaging.deleteToken();
   }
 
@@ -107,7 +108,7 @@ class FcmService {
           _channel.name,
           channelDescription: _channel.description,
           importance: Importance.high,
-          priority:   Priority.high,
+          priority: Priority.high,
         ),
         iOS: const DarwinNotificationDetails(),
       ),

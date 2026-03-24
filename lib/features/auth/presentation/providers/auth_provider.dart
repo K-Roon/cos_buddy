@@ -1,7 +1,7 @@
 import 'package:cos_buddy/features/auth/domain/models/user_model.dart';
 import 'package:cos_buddy/shared/providers/service_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/utills/password_hasher.dart';
+import '../../../../core/utils/password_hasher.dart';
 
 final authStateProvider = StreamProvider<UserModel?>((ref) {
   return ref.watch(authRepositoryProvider).authStateChanges;
