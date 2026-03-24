@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part '../models/user_device_model.freezed.dart';
-part '../models/user_device_model.g.dart';
+part 'user_device_model.freezed.dart';
+part 'user_device_model.g.dart';
 
 enum DevicePlatform { android, ios }
 
@@ -15,10 +15,8 @@ class UserDeviceModel with _$UserDeviceModel {
     String? deviceName,
     String? appVersion,
     @Default(true) bool isActive,
-
-    // 타임스탬프 — 서버 UTC 결정, 앱 읽기 전용
     required DateTime createdAt,
-    DateTime?         updatedAt,
+    DateTime? updatedAt,
   }) = _UserDeviceModel;
 
   factory UserDeviceModel.fromJson(Map<String, dynamic> json) =>
